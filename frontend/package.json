@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild src/index.js --bundle --outfile=Bundle.js --loader:.js=jsx --format=cjs"
+    "build": "esbuild src/index.js --bundle --outfile=dist/bundle.js --loader:.js=jsx --format=cjs"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +12,8 @@
   "description": "",
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.10"
   },
   "devDependencies": {
     "esbuild": "^0.23.1"
