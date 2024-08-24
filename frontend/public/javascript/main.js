@@ -1,4 +1,4 @@
 (() => {
-  // public/javascripts/main.js
+  // src/javascript/main.js
   console.log("a");
 })();

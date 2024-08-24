@@ -1,11 +1,19 @@
 const esbuild = require("esbuild");
+const postCssPlugin = require('esbuild-style-plugin')
+
 async function watch() {
   let ctx = await esbuild.context({
-    entryPoints: ["./public/javascripts/main.js"],
-    minify: false,
-    outfile: "./public/javascripts/build.js",
+    entryPoints: ["./src/javascript/main.js", "./src/style/style.css"],
+    outdir: 'public',
     bundle: true,
-    loader: { ".js": "js" },
+    minify: false,
+    plugins: [
+      postCssPlugin({
+        postcss: {
+          plugins: [require('tailwindcss'), require('autoprefixer')],
+        },
+      }),
+    ]
   });
   await ctx.watch();
   console.log('Watching...');
