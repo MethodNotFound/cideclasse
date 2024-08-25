@@ -1,4 +1,4 @@
-module ncdclssrm
+module cideclasse
 
 go 1.22.3
 
