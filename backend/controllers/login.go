@@ -1,13 +1,13 @@
 package controllers
 
 import (
-  "cideclasse/database"
-  "cideclasse/models"
+	"cideclasse/database"
+	"cideclasse/models"
 
-  "gorm.io/gorm"
-  "github.com/go-playground/validator/v10"
-  "github.com/gofiber/fiber/v2"
-  "golang.org/x/crypto/bcrypt"
+	"github.com/go-playground/validator/v10"
+	"github.com/gofiber/fiber/v2"
+	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 func DefineLoginEndPoints(app *fiber.App) {
@@ -55,11 +55,10 @@ func DefineLoginEndPoints(app *fiber.App) {
         "error": "password incorrect",
         "pass_h": login.PasswordHash,
       })
-    } else {
-      return c.JSON(fiber.Map{
-        "data": "logged in",
-      })
     }
+    return c.JSON(fiber.Map{
+      "data": "logged in",
+    })
   })
 
   app.Post("/logins", func(c *fiber.Ctx) error {

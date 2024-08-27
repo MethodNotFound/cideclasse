@@ -1,17 +1,17 @@
 version: '3.9'  # Specify the version of Docker Compose
 
 services:
-  back:
-    build: .
-    command: "./main"
-    volumes:
-      - .:/app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    networks:
-      - app_network
+  # back:
+  #   build: .
+  #   command: "./main"
+  #   volumes:
+  #     - .:/app
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - app_network
 
   db:
     image: docker.io/library/mysql:8.0
@@ -37,8 +37,18 @@ services:
     networks:
       - app_network
 
+  piston:
+    image: ghcr.io/engineer-man/piston
+    volumes:
+      - piston_data:/piston
+    ports:
+      - "2000:2000"
+    tmpfs:
+      - /piston/jobs
+
 volumes:
   mysql_data:
+  piston_data:
 
 networks:
   app_network:
