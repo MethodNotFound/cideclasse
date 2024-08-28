@@ -9,7 +9,7 @@ import (
 func main() {
   app := fiber.New()
 
-  controllers.DefineLoginEndPoints(app)
+  controllers.DefineStudentsEndPoints(app)
 
   app.Listen(":3000")
 }
