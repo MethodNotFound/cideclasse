@@ -1,14 +1,16 @@
 package controllers
 
 import (
-	"cideclasse/database"
-	"cideclasse/models"
+  "cideclasse/database"
+  "cideclasse/models"
 
-	"github.com/go-playground/validator/v10"
-	"github.com/gofiber/fiber/v2"
-	"golang.org/x/crypto/bcrypt"
+  "strconv"
 
-	"github.com/golang-jwt/jwt/v5"
+  "github.com/go-playground/validator/v10"
+  "github.com/gofiber/fiber/v2"
+  "golang.org/x/crypto/bcrypt"
+
+  "github.com/golang-jwt/jwt/v5"
 )
 
 func DefineSessionsEndPoints(app *fiber.App) {
@@ -22,10 +24,10 @@ func DefineSessionsEndPoints(app *fiber.App) {
 
     req := new(request)
     if err := c.BodyParser(req); err != nil {
-        return JsonParseError(c)
+      return JsonParseError(c)
     }
     if err := validator.New().Struct(req); err != nil {
-        return ValidateError(c, err)
+      return ValidateError(c, err)
     }
 
     // TODO you already know
@@ -68,7 +70,7 @@ func DefineSessionsEndPoints(app *fiber.App) {
 
     // Create the Claims
     claims := jwt.MapClaims{
-      "id":  session.ID,
+      "id":  strconv.FormatUint(uint64(session.ID), 10),
     }
     token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
     t, err := token.SignedString([]byte("secret"))
@@ -89,10 +91,10 @@ func DefineSessionsEndPoints(app *fiber.App) {
 
     req := new(request)
     if err := c.BodyParser(req); err != nil {
-        return JsonParseError(c)
+      return JsonParseError(c)
     }
     if err := validator.New().Struct(req); err != nil {
-        return ValidateError(c, err)
+      return ValidateError(c, err)
     }
 
     student, err := models.FindStudent(db, req.Identifier)

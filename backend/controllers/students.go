@@ -4,42 +4,30 @@ import (
   "cideclasse/database"
   "cideclasse/models"
 
-  "github.com/go-playground/validator/v10"
+  // "github.com/go-playground/validator/v10"
   "github.com/gofiber/fiber/v2"
+  "github.com/golang-jwt/jwt/v5"
 )
 
 func DefineStudentsEndPoints(app *fiber.App) {
   db := database.Connection
 
-  app.Post("/students", func(c *fiber.Ctx) error {
-    err := RequireAdmin(c)
-    if err != nil {
-      return err
-    }
+  app.Get("/current_student", func(c *fiber.Ctx) error {
+    sessions := c.Locals("user").(*jwt.Token)
+    claims := sessions.Claims.(jwt.MapClaims)
+    session_id := claims["id"].(string)
 
-    type request struct {
-      Identifier  string `json:"identifier" validate:"required"`
-      Name  string `json:"name" validate:"required"`
-    }
+    var session models.Session
 
-    req := new(request)
-    if err := c.BodyParser(req); err != nil {
-      return JsonParseError(c)
-    }
-    if err := validator.New().Struct(req); err != nil {
-      return ValidateError(c, err)
-    }
-
-    student, err := models.CreateStudent(db, req.Name, req.Identifier)
-    if err != nil {
+    result := db.Where("id = ?", session_id).First(&session)
+    if result.Error != nil {
       return c.JSON(fiber.Map{
-        "error": err,
+        "error": result.Error,
+      })
+    } else {
+      return c.JSON(fiber.Map{
+        "data": session,
       })
     }
-
-    return c.JSON(fiber.Map{
-      "success": "student created",
-      "data": student,
-    })
   })
 }

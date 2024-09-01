@@ -18,6 +18,7 @@ func main() {
     SigningKey: jwtware.SigningKey{Key: []byte("secret")},
   }))
 
+  controllers.DefineAdminStudentsEndPoints(app)
   controllers.DefineStudentsEndPoints(app)
 
   app.Listen(":3000")
