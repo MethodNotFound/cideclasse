@@ -15,7 +15,9 @@ func DefineAdminStudentsEndPoints(app *fiber.App) {
   app.Patch("/admin/students/:identifier/reset", func(c *fiber.Ctx) error {
     err := RequireAdmin(c)
     if err != nil {
-      return err
+      return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+        "error": err,
+      })
     }
 
     student, err := models.FindStudent(db, c.Params("identifier"))
@@ -34,7 +36,9 @@ func DefineAdminStudentsEndPoints(app *fiber.App) {
   app.Post("/admin/students", func(c *fiber.Ctx) error {
     err := RequireAdmin(c)
     if err != nil {
-      return err
+      return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+        "error": err,
+      })
     }
 
     type request struct {
