@@ -19,6 +19,7 @@ func main() {
   }))
 
   controllers.DefineAdminStudentsEndPoints(app)
+  controllers.DefineAdminClassesEndPoints(app)
   controllers.DefineStudentsEndPoints(app)
 
   app.Listen(":3000")

@@ -15,6 +15,8 @@ type Student struct {
   AskNewPassword bool `gorm:"not null"`
 
   Sessions []Session
+
+  Classes []*Class `gorm:"many2many:user_classes;"`
 }
 
 func CreateStudent(db *gorm.DB, name string, identifier string) (*Student, error){
