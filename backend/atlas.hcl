@@ -6,14 +6,14 @@ data "external_schema" "gorm" {
     "ariga.io/atlas-provider-gorm",
     "load",
     "--path", "./models",
-    "--dialect", "mysql", 
+    "--dialect", "postgres", 
   ]
 }
 
 env "develop" {
   src = data.external_schema.gorm.url
-  dev = "mysql://root:mysql@127.0.0.1:3306/mysqldb"
-  url = "mysql://root:mysql@127.0.0.1:3306/mysqldb"
+  dev = "postgresql://jureg:password@127.0.0.1:5432/cideclasse?sslmode=disable"
+  url = "postgresql://jureg:password@127.0.0.1:5432/cideclasse?sslmode=disable"
   migration {
     dir = "file://migrations"
   }
