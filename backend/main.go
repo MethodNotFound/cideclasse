@@ -2,6 +2,7 @@ package main
 
 import (
   "cideclasse/controllers"
+  "cideclasse/database"
 
   "github.com/gofiber/fiber/v2"
 
@@ -10,6 +11,8 @@ import (
 )
 
 func main() {
+  database.Setup()
+
   app := fiber.New()
 
   controllers.DefineSessionsEndPoints(app)
