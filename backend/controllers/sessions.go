@@ -16,6 +16,12 @@ import (
 func DefineSessionsEndPoints(app *fiber.App) {
   db := database.Connection
 
+  app.Get("/front/sessions", func(c *fiber.Ctx) error {
+    return c.Render("login", fiber.Map{
+      "Title": "Hdello, World!",
+    })
+  })
+
   app.Post("/sessions", func(c *fiber.Ctx) error {
     type request struct {
       Identifier  string `json:"identifier" validate:"required"`

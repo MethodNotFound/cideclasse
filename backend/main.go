@@ -5,17 +5,32 @@ import (
   "cideclasse/database"
 
   "github.com/gofiber/fiber/v2"
+  "github.com/gofiber/template/html/v2"
 
-	jwtware "github.com/gofiber/contrib/jwt"
-	// "github.com/golang-jwt/jwt/v5"
+  jwtware "github.com/gofiber/contrib/jwt"
+  // "github.com/golang-jwt/jwt/v5"
 )
 
 func main() {
   database.Setup()
 
-  app := fiber.New()
+  engine := html.New("./views", ".html")
+
+  app := fiber.New(fiber.Config{
+    Views: engine,
+    ViewsLayout: "layouts/main",
+    PassLocalsToViews: true,
+  })
 
   controllers.DefineSessionsEndPoints(app)
+
+  app.Static("/", "../public")
+
+  app.Get("/front/home", func(c *fiber.Ctx) error {
+    return c.Render("dashboard", fiber.Map{
+      "Title": "Hdello, World!",
+    })
+  })
 
   app.Use(jwtware.New(jwtware.Config{
     SigningKey: jwtware.SigningKey{Key: []byte("secret")},

@@ -2,3 +2,7 @@ main
 backend/cideclasse
 frontend/Bundle.js
 frontend/node_modules
+
+node_modules
+public/style/*
+public/javascript/*
