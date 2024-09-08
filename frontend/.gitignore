@@ -58,5 +58,5 @@ typings/
 .env
 
 # next.js build output
-# public/style/*
-# public/javascript/*
+public/style/*
+public/javascript/*
