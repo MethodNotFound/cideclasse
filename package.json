@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "watch_build": "node build.js",
+    "build": "NOT_WATCH=1 node build.js"
   },
   "dependencies": {
   },
