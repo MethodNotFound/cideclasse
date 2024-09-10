@@ -14,7 +14,7 @@ import (
 func main() {
   database.Setup()
 
-  engine := html.New("./views", ".html")
+  engine := html.New("backend/views", ".html")
 
   app := fiber.New(fiber.Config{
     Views: engine,
@@ -24,7 +24,7 @@ func main() {
 
   controllers.DefineSessionsEndPoints(app)
 
-  app.Static("/", "../public")
+  app.Static("/", "./public")
 
   app.Get("/front/home", func(c *fiber.Ctx) error {
     return c.Render("dashboard", fiber.Map{
